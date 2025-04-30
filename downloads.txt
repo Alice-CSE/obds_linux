@@ -1,0 +1,8 @@
+Mouse genome downloaded from ensembl: https://ftp.ensembl.org/pub/release-113/fasta/mus_musculus/dna/Mus_musculus.GRCm39.dna.toplevel.fa.gz
+at 14:10 29/04/2025
+Download checked using md5sum into file md5sum_mus.txt : OK
+
+Annotation GTF file for mouse genome downloaded from emsembl: https://ftp.ensembl.org/pub/release-113/gtf/mus_musculus/Mus_musculus.GRCm39.113.gtf.gz
+at 14:12 29/04/2025
+Download checked using md5sum into file md5sum_mus_gtf.txt : OK
+
