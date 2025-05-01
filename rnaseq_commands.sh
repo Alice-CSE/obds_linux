@@ -22,3 +22,34 @@ load_mamba #alias for obds-rnaseq environment
 (obds-rnaseq) bras5846@obds:/project/bras5846/linux/3_analysis$ ls
 #adding commands to this
 (obds-rnaseq) bras5846@obds:/project/bras5846/linux/3_analysis$ nano rnaseq_commands.sh
+
+#20250501 OBDS hisat2 via slurm commands
+#/project/bras5846/linux/3_analysis$ mkdir 1_hisat2_slurm
+#mv /project/bras5846/linux/3_analysis/1_hisat2_slurm/ /project/bras5846/linux/3_analysis/2_hisat2_slur
+#bras5846@obds:/project/bras5846/linux/3_analysis/2_hisat2_slurm$
+load_mamba
+##contents of .sh file submitted to slurm
+#!/bin/bash
+#SBATCH --partition=cpu
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mem=10G
+#SBATCH --ntasks=8
+#SBATCH --time=0-01:00:00
+#SBATCH --output=%j_%x.out
+#SBATCH --error=%j_%x.err
+hisat2 --threads 8 \
+   -x /project/shared/linux/5_rnaseq/hisat2_index/mm10 \
+   -1 /project/bras5846/linux/1_fastq/cd4_rep1_read1.fastq.gz \
+   -2 /project/bras5846/linux/1_fastq/cd4_rep1_read2.fastq.gz \
+   --rna-strandness RF \
+   --summary-file stats.txt \
+   -S aln-pe.sam
+##then submit to slurm
+sbatch slurm_hisat.sh
+#then watching
+squeue
+watch squeue --me
+#once comepleted:
+cat 132_slurm_hisat.sh.out
+cat 132_slurm_hisat.sh.err 
+
