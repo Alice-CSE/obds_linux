@@ -53,3 +53,35 @@ watch squeue --me
 cat 132_slurm_hisat.sh.out
 cat 132_slurm_hisat.sh.err 
 
+
+##20250502 OBD linux day 5 Mapping QC and quantification (see slurm files for submitted jobs)
+load_mamba
+#set working direcotry to mapping QC
+cd /project/bras5846/linux/3_analysis/3_MappingQC
+#write  slurm mapping file
+nano slurm_mappingqc.sh
+#run converting SAM to BAM, indexing BAM, flagstat, idxstats
+sbatch slurm_mappingqc.sh
+#run multiqc to look at flagstat and idx stat outputs (could have also used picard)
+multiqc.
+#then switch to quantification directory
+cd /project/bras5846/linux/3_analysis/4_Quantification
+#write slurm  quantification file
+nano slurm_quantification.sh
+#then run the feature counts command
+sbatch slurm_quantification.sh
+#watch it 
+squeue
+watch squeue --me
+#add it multiqc to check if has worked
+multiqc .
+
+#note as part of this we had to reload the gtf file as we indexed with grc38 not 39 and rerun the  quantification
+cd /project/bras5846/linux/2_genome/GRC38
+wget http://ftp.ensembl.org/pub/release-102/gtf/mus_musculus/Mus_musculus.GRCm38.102.gtf.gz
+
+#then added slurm files and updated this rnaseq command files to git
+
+#end of course!
+
+
